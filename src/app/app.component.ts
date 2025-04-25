@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { ReceivingChoiceCheckinComponent } from './receiving-choice-checkin/receiving-choice-checkin.component';
 import {
   MatDialog,
@@ -9,14 +8,14 @@ import {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatDialogModule],
+  imports: [MatDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   constructor(private dialog: MatDialog) {}
 
-  openModalPaymentCheckin(): void {
+  openModalCheckin(): void {
     const dialogRef = this.dialog.open(ReceivingChoiceCheckinComponent, {
       data: {},
     });
@@ -26,17 +25,9 @@ export class AppComponent {
     });
   }
 
-  openModalPaymentProposal(): void {}
+  openModalProposal(): void {}
 
-  openModalPaymentAccountsReceiver(): void {}
+  openModalAccountsReceiver(): void {}
 
   openModalBillsToPay(): void {}
-
-  openModalCancelCheckin(): void {}
-
-  openModalCancelProposal(): void {}
-
-  openModalCancelAccountsReceiver(): void {}
-
-  openModalCancelBillsToPay(): void {}
 }
