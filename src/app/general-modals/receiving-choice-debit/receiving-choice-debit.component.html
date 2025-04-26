@@ -1,1 +1,124 @@
-<p>receiving-choice-debit works!</p>
+<div class="payment-modal-container" [formGroup]="formPaymentCreditCard">
+  <div class="payment-modal-header">
+    <button mat-icon-button (click)="onBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="payment-modal-title">{{ titleComponet }}</span>
+    <button mat-icon-button (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="payment-modal-content">
+    <div *ngIf="isTef$ | async; else notTef">
+      <div class="payment-modal-info">
+        <mat-icon color="primary">info</mat-icon>
+        <div class="info-text">
+          <strong>TEF Ativo</strong>
+          <p>Para máquinas inoperantes, entre em contato com a supervisão.</p>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #notTef>
+      <div class="payment-modal-info">
+        <mat-icon color="primary">warning</mat-icon>
+        <div class="info-text">
+          <strong>Módulo não TEF habilitado</strong>
+          <p>
+            Para máquinas operando normalmente, utilize o tipo TEF. Informe à
+            supervisão quando o serviço for restabelecido.
+          </p>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="payment-modal-options">
+      <mat-radio-group formControlName="isTef" class="tef-options">
+        <mat-radio-button [value]="true">TEF</mat-radio-button>
+        <mat-radio-button [value]="false">Não TEF</mat-radio-button>
+      </mat-radio-group>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Máquina</mat-label>
+        <mat-select formControlName="machine">
+          <mat-option
+            *ngFor="let machine of typeMachine"
+            [value]="machine.value"
+          >
+            {{ machine.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Parcelas</mat-label>
+        <mat-select formControlName="parcel">
+          <mat-option
+            *ngFor="let installment of installments"
+            [value]="installment"
+          >
+            {{ installment }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data do Pagamento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="paymentDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker"
+          disabled
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contas Correntes</mat-label>
+        <mat-select formControlName="currentAccount">
+          <mat-option
+            *ngFor="let account of accounts$ | async"
+            [value]="account.value"
+          >
+            {{ account.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input
+          matInput
+          formControlName="paymentValue"
+          mask="separator.2"
+          [thousandSeparator]="'.'"
+          [decimalMarker]="','"
+          [dropSpecialCharacters]="true"
+          [inputMode]="'financial'"
+          prefix="R$ "
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="payment-modal-actions">
+    <button mat-stroked-button color="primary" (click)="onCancel()">
+      Cancelar
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="onPay()"
+      [disabled]="formPaymentCreditCard.invalid"
+    >
+      Pagar
+    </button>
+  </div>
+</div>

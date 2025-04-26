@@ -31,6 +31,8 @@ import {
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
+import { Account } from '../../shared/interfaces/account.current.interface';
+import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
 
 export const APP_DATE_FORMATS: MatDateFormats = {
   parse: { dateInput: 'DD/MM/YYYY' },
@@ -41,16 +43,6 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     monthYearA11yLabel: 'MMM YYYY',
   },
 };
-
-interface Account {
-  value: number;
-  label: string;
-}
-
-interface TypeMachine {
-  value: number;
-  label: string;
-}
 
 @Component({
   selector: 'app-receiving-choice-credit',
