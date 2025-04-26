@@ -27,12 +27,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { NgFor } from '@angular/common';
+import { AsyncPipe, NgFor } from '@angular/common';
+import { Observable, map, startWith } from 'rxjs';
 
 export const APP_DATE_FORMATS: MatDateFormats = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
+  parse: { dateInput: 'DD/MM/YYYY' },
   display: {
     dateInput: 'DD/MM/YYYY',
     monthYearLabel: 'MMM YYYY',
@@ -40,6 +39,16 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     monthYearA11yLabel: 'MMM YYYY',
   },
 };
+
+interface Account {
+  value: number;
+  label: string;
+}
+
+interface TypeMachine {
+  value: number;
+  label: string;
+}
 
 @Component({
   selector: 'app-receiving-choice-checkin',
@@ -58,6 +67,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MatDividerModule,
     ReactiveFormsModule,
     NgxMaskDirective,
+    AsyncPipe,
   ],
   templateUrl: './receiving-choice-checkin.component.html',
   styleUrls: ['./receiving-choice-checkin.component.scss'],
@@ -74,33 +84,24 @@ export const APP_DATE_FORMATS: MatDateFormats = {
 export class ReceivingChoiceCheckinComponent implements OnInit {
   formPaymentCreditCard!: FormGroup;
 
-  installments = [1, 2, 3, 4, 5, 6, 12];
-  accountsTef = [
-    {
-      value: 1,
-      label: 'Conta TEF 1',
-    },
-    {
-      value: 2,
-      label: 'Conta TEF 2',
-    },
+  installments: number[] = [1, 2, 3, 4, 5, 6, 12];
+
+  typeMachine: TypeMachine[] = [
+    { value: 1, label: 'AUTO' },
+    { value: 1, label: 'MANUAL' },
+  ];
+
+  accountsTef: Account[] = [
+    { value: 1, label: 'Conta TEF 1' },
+    { value: 2, label: 'Conta TEF 2' },
   ];
   accountsNotTef = [
-    {
-      value: 1,
-      label: 'Conta NÃO TEF 1',
-    },
-    {
-      value: 2,
-      label: 'Conta NÃO TEF 2',
-    },
+    { value: 1, label: 'Conta NÃO TEF 1' },
+    { value: 2, label: 'Conta NÃO TEF 2' },
   ];
-  accountsMoney = [
-    {
-      value: 1,
-      label: 'Conta Dinheiro',
-    },
-  ];
+  accountsMoney: Account[] = [{ value: 1, label: 'Conta Dinheiro' }];
+
+  accounts$!: Observable<Account[]>;
 
   constructor(
     private dialogRef: MatDialogRef<ReceivingChoiceCheckinComponent>,
@@ -109,12 +110,24 @@ export class ReceivingChoiceCheckinComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.startForm();
+    this.defineCurrentAccounts();
+  }
+
+  defineCurrentAccounts() {
+    this.accounts$ = this.formPaymentCreditCard.get('isTef')!.valueChanges.pipe(
+      startWith(this.formPaymentCreditCard.get('isTef')!.value),
+      map((isTef: boolean) => (isTef ? this.accountsTef : this.accountsNotTef))
+    );
+  }
+
+  startForm() {
     this.formPaymentCreditCard = this.fb.group({
       isTef: [true, Validators.required],
-      machine: ['AUTO', Validators.required],
+      machine: [this.typeMachine[0].value, Validators.required],
       parcel: [1, Validators.required],
       paymentDate: [new Date(), Validators.required],
-      currentAccount: ['Banco do Brasil', Validators.required],
+      currentAccount: [null, Validators.required],
       paymentValue: [0, [Validators.required]],
     });
   }
