@@ -78,7 +78,12 @@
           <input
             matInput
             formControlName="paymentValue"
-            placeholder="R$ 0,00"
+            mask="separator.2"
+            [thousandSeparator]="'.'"
+            [decimalMarker]="','"
+            [dropSpecialCharacters]="false"
+            [inputMode]="'financial'"
+            prefix="R$ "
           />
         </mat-form-field>
       </div>

@@ -26,6 +26,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { NgFor } from '@angular/common';
 
 export const APP_DATE_FORMATS: MatDateFormats = {
@@ -56,10 +57,12 @@ export const APP_DATE_FORMATS: MatDateFormats = {
     MatNativeDateModule,
     MatDividerModule,
     ReactiveFormsModule,
+    NgxMaskDirective,
   ],
   templateUrl: './receiving-choice-checkin.component.html',
   styleUrls: ['./receiving-choice-checkin.component.scss'],
   providers: [
+    provideNgxMask(),
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
