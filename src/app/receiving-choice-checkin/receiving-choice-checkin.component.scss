@@ -45,19 +45,16 @@
 }
 
 .payment-modal-options {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 12px 20px;
+  padding: 30px 10px 0 10px;
 
   .tef-options {
     display: flex;
-    gap: 16px;
-  }
-
-  .payment-modal-fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    align-items: center;
+    gap: 30px;
   }
 }
 
