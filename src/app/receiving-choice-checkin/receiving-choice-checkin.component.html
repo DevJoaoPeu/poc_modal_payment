@@ -1,4 +1,4 @@
-<div class="payment-modal-container">
+<div class="payment-modal-container" [formGroup]="formPaymentCreditCard">
   <div class="payment-modal-header">
     <button mat-icon-button (click)="onBack()">
       <mat-icon>arrow_back</mat-icon>
@@ -16,39 +16,44 @@
       <mat-icon color="primary">info</mat-icon>
       <div class="info-text">
         <strong>TEF Ativo</strong>
-        <p>Para máquina inoperantes, entre em contato com a supervisão.</p>
+        <p>Para máquinas inoperantes, entre em contato com a supervisão.</p>
       </div>
     </div>
 
     <div class="payment-modal-options">
-      <mat-radio-group [(ngModel)]="isTefActive" class="tef-options">
+      <mat-radio-group formControlName="isTef" class="tef-options">
         <mat-radio-button [value]="true">TEF</mat-radio-button>
         <mat-radio-button [value]="false">Não TEF</mat-radio-button>
       </mat-radio-group>
 
       <div class="payment-modal-fields">
         <mat-form-field appearance="fill">
-          <mat-label>Máquina *</mat-label>
-          <mat-select [(ngModel)]="selectedMachine">
+          <mat-label>Máquina</mat-label>
+          <mat-select formControlName="machine">
             <mat-option value="AUTO">AUTO</mat-option>
             <mat-option value="MANUAL">MANUAL</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Parcelas *</mat-label>
-          <mat-select [(ngModel)]="selectedInstallments">
+          <mat-label>Parcelas</mat-label>
+          <mat-select formControlName="parcel">
             <mat-option
               *ngFor="let installment of installments"
               [value]="installment"
-              >{{ installment }}</mat-option
             >
+              {{ installment }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Data do Pagamento</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="paymentDate" />
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="paymentDate"
+          />
           <mat-datepicker-toggle
             matSuffix
             [for]="picker"
@@ -57,17 +62,24 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Contas Correntes *</mat-label>
-          <mat-select [(ngModel)]="selectedAccount">
-            <mat-option *ngFor="let account of accounts" [value]="account">{{
-              account
-            }}</mat-option>
+          <mat-label>Contas Correntes</mat-label>
+          <mat-select formControlName="currentAccount">
+            <mat-option
+              *ngFor="let account of accountsTef"
+              [value]="account.value"
+            >
+              {{ account.label }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Valor</mat-label>
-          <input matInput [(ngModel)]="paymentValue" placeholder="R$ 0,00" />
+          <input
+            matInput
+            formControlName="paymentValue"
+            placeholder="R$ 0,00"
+          />
         </mat-form-field>
       </div>
     </div>
@@ -77,6 +89,13 @@
     <button mat-stroked-button color="primary" (click)="onCancel()">
       Cancelar
     </button>
-    <button mat-flat-button color="primary" (click)="onPay()">Pagar</button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="onPay()"
+      [disabled]="formPaymentCreditCard.invalid"
+    >
+      Pagar
+    </button>
   </div>
 </div>

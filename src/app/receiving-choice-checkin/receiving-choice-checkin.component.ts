@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -13,12 +13,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-receiving-choice-checkin',
+  standalone: true,
   imports: [
     MatDialogModule,
+    NgFor,
     MatButtonModule,
     MatIconModule,
     MatRadioModule,
@@ -28,26 +36,58 @@ import { FormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
-    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './receiving-choice-checkin.component.html',
-  styleUrl: './receiving-choice-checkin.component.scss',
+  styleUrls: ['./receiving-choice-checkin.component.scss'],
 })
-export class ReceivingChoiceCheckinComponent {
-  isTefActive: boolean = true;
-  selectedMachine: string = 'AUTO';
-  selectedInstallments: number | null = null;
-  paymentDate: Date = new Date();
-  selectedAccount: string | null = null;
-  paymentValue: number | null = null;
+export class ReceivingChoiceCheckinComponent implements OnInit {
+  formPaymentCreditCard!: FormGroup;
 
   installments = [1, 2, 3, 4, 5, 6, 12];
-  accounts = ['Banco do Brasil', 'Caixa Econômica', 'Nubank', 'Santander'];
+  accountsTef = [
+    {
+      value: 1,
+      label: 'Conta TEF 1',
+    },
+    {
+      value: 2,
+      label: 'Conta TEF 2',
+    },
+  ];
+  accountsNotTef = [
+    {
+      value: 1,
+      label: 'Conta NÃO TEF 1',
+    },
+    {
+      value: 2,
+      label: 'Conta NÃO TEF 2',
+    },
+  ];
+  accountsMoney = [
+    {
+      value: 1,
+      label: 'Conta Dinheiro',
+    },
+  ];
 
   constructor(
     private dialogRef: MatDialogRef<ReceivingChoiceCheckinComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder
   ) {}
+
+  ngOnInit(): void {
+    this.formPaymentCreditCard = this.fb.group({
+      isTef: [true, Validators.required],
+      machine: ['AUTO', Validators.required],
+      parcel: [1, Validators.required],
+      paymentDate: [new Date(), Validators.required],
+      currentAccount: ['Banco do Brasil', Validators.required],
+      paymentValue: [0, [Validators.required]],
+    });
+  }
 
   onBack(): void {
     this.dialogRef.close({ action: 'back' });
@@ -62,15 +102,11 @@ export class ReceivingChoiceCheckinComponent {
   }
 
   onPay(): void {
-    const payload = {
-      isTefActive: this.isTefActive,
-      selectedMachine: this.selectedMachine,
-      selectedInstallments: this.selectedInstallments,
-      paymentDate: this.paymentDate,
-      selectedAccount: this.selectedAccount,
-      paymentValue: this.paymentValue,
-    };
-
-    this.dialogRef.close({ action: 'pay', data: payload });
+    if (this.formPaymentCreditCard.valid) {
+      this.dialogRef.close({
+        action: 'pay',
+        data: this.formPaymentCreditCard.value,
+      });
+    }
   }
 }
