@@ -99,7 +99,7 @@ export class ReceivingChoiceCheckinComponent implements OnInit {
     { value: 1, label: 'Conta TEF 1' },
     { value: 2, label: 'Conta TEF 2' },
   ];
-  accountsNotTef = [
+  accountsNotTef: Account[] = [
     { value: 1, label: 'Conta NÃO TEF 1' },
     { value: 2, label: 'Conta NÃO TEF 2' },
   ];
