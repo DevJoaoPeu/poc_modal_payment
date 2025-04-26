@@ -6,6 +6,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { ReceivingChoiceDebitComponent } from './general-modals/receiving-choice-debit/receiving-choice-debit.component';
+import { ReceivingChoiceMoneyComponent } from './general-modals/receiving-choice-money/receiving-choice-money.component';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,15 @@ export class AppComponent {
     });
   }
 
-  openModalAccountsReceiver(): void {}
+  openModalAccountsReceiver(): void {
+    const dialogRef = this.dialog.open(ReceivingChoiceMoneyComponent, {
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('O modal foi fechado');
+    });
+  }
 
   openModalBillsToPay(): void {}
 }
