@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReceivingChoiceCreditComponent } from './receiving-choice-credit/receiving-choice-credit.component';
+import { ReceivingChoiceCreditComponent } from './general-modals/receiving-choice-credit/receiving-choice-credit.component';
 import {
   MatDialog,
   MatDialogModule,
