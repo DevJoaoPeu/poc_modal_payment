@@ -11,8 +11,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatDateFormats,
+  MatNativeDateModule,
+} from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
   FormBuilder,
   FormGroup,
@@ -20,6 +27,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgFor } from '@angular/common';
+
+export const APP_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-receiving-choice-checkin',
@@ -40,6 +59,14 @@ import { NgFor } from '@angular/common';
   ],
   templateUrl: './receiving-choice-checkin.component.html',
   styleUrls: ['./receiving-choice-checkin.component.scss'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+  ],
 })
 export class ReceivingChoiceCheckinComponent implements OnInit {
   formPaymentCreditCard!: FormGroup;
