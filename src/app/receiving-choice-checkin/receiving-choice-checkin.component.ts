@@ -126,7 +126,7 @@ export class ReceivingChoiceCheckinComponent implements OnInit {
       isTef: [true, Validators.required],
       machine: [this.typeMachine[0].value, Validators.required],
       parcel: [1, Validators.required],
-      paymentDate: [new Date(), Validators.required],
+      paymentDate: [{ value: new Date(), disabled: true }, Validators.required],
       currentAccount: [null, Validators.required],
       paymentValue: [0, [Validators.required]],
     });
