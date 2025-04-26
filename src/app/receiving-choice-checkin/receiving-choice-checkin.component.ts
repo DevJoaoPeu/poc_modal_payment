@@ -21,9 +21,11 @@ import {
 import { MatDividerModule } from '@angular/material/divider';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
@@ -145,8 +147,13 @@ export class ReceivingChoiceCheckinComponent implements OnInit {
       parcel: [1, Validators.required],
       paymentDate: [{ value: new Date(), disabled: true }, Validators.required],
       currentAccount: [null, Validators.required],
-      paymentValue: [0, [Validators.required]],
+      paymentValue: [0, [Validators.required, this.validatesIfTheValueIsZero]],
     });
+  }
+
+  validatesIfTheValueIsZero(control: AbstractControl): ValidationErrors | null {
+    const valor: number = +control.value;
+    return valor === 0 ? { valorZero: true } : null;
   }
 
   onBack(): void {
