@@ -27,8 +27,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { AsyncPipe, NgFor } from '@angular/common';
-import { Observable, map, startWith } from 'rxjs';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 
 export const APP_DATE_FORMATS: MatDateFormats = {
   parse: { dateInput: 'DD/MM/YYYY' },
@@ -68,6 +68,7 @@ interface TypeMachine {
     ReactiveFormsModule,
     NgxMaskDirective,
     AsyncPipe,
+    NgIf,
   ],
   templateUrl: './receiving-choice-checkin.component.html',
   styleUrls: ['./receiving-choice-checkin.component.scss'],
@@ -83,6 +84,7 @@ interface TypeMachine {
 })
 export class ReceivingChoiceCheckinComponent implements OnInit {
   formPaymentCreditCard!: FormGroup;
+  titleComponet: string = 'Receber por Cartão de Crédito';
 
   installments: number[] = [1, 2, 3, 4, 5, 6, 12];
 
@@ -102,6 +104,7 @@ export class ReceivingChoiceCheckinComponent implements OnInit {
   accountsMoney: Account[] = [{ value: 1, label: 'Conta Dinheiro' }];
 
   accounts$!: Observable<Account[]>;
+  isTef$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
     private dialogRef: MatDialogRef<ReceivingChoiceCheckinComponent>,
@@ -112,6 +115,20 @@ export class ReceivingChoiceCheckinComponent implements OnInit {
   ngOnInit(): void {
     this.startForm();
     this.defineCurrentAccounts();
+    this.setTefMessageOrNotTef();
+  }
+
+  setTefMessageOrNotTef() {
+    const defineMessage$ = this.formPaymentCreditCard
+      .get('isTef')!
+      .valueChanges.pipe(
+        startWith(this.formPaymentCreditCard.get('isTef')!.value),
+        map((isTef: boolean) => (isTef ? true : false))
+      );
+
+    defineMessage$.subscribe((isTef) => {
+      this.isTef$.next(isTef);
+    });
   }
 
   defineCurrentAccounts() {
