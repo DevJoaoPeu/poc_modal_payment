@@ -76,7 +76,7 @@ export const APP_DATE_FORMATS: MatDateFormats = {
   styleUrls: ['./receiving-choice-debit.component.scss'],
 })
 export class ReceivingChoiceDebitComponent {
-  formPaymentCreditCard!: FormGroup;
+  formPaymentDebitCard!: FormGroup;
   titleComponet: string = 'Receber por Cartão de Débito';
 
   installments: number[] = [1, 2, 3, 4, 5, 6, 12];
@@ -112,10 +112,10 @@ export class ReceivingChoiceDebitComponent {
   }
 
   setTefMessageOrNotTef() {
-    const defineMessage$ = this.formPaymentCreditCard
+    const defineMessage$ = this.formPaymentDebitCard
       .get('isTef')!
       .valueChanges.pipe(
-        startWith(this.formPaymentCreditCard.get('isTef')!.value),
+        startWith(this.formPaymentDebitCard.get('isTef')!.value),
         map((isTef: boolean) => (isTef ? true : false))
       );
 
@@ -125,17 +125,16 @@ export class ReceivingChoiceDebitComponent {
   }
 
   defineCurrentAccounts() {
-    this.accounts$ = this.formPaymentCreditCard.get('isTef')!.valueChanges.pipe(
-      startWith(this.formPaymentCreditCard.get('isTef')!.value),
+    this.accounts$ = this.formPaymentDebitCard.get('isTef')!.valueChanges.pipe(
+      startWith(this.formPaymentDebitCard.get('isTef')!.value),
       map((isTef: boolean) => (isTef ? this.accountsTef : this.accountsNotTef))
     );
   }
 
   startForm() {
-    this.formPaymentCreditCard = this.fb.group({
+    this.formPaymentDebitCard = this.fb.group({
       isTef: [true, Validators.required],
       machine: [this.typeMachine[0].value, Validators.required],
-      parcel: [1, Validators.required],
       paymentDate: [{ value: new Date(), disabled: true }, Validators.required],
       currentAccount: [null, Validators.required],
       paymentValue: [0, [Validators.required, this.validatesIfTheValueIsZero]],
@@ -160,10 +159,10 @@ export class ReceivingChoiceDebitComponent {
   }
 
   onPay(): void {
-    if (this.formPaymentCreditCard.valid) {
+    if (this.formPaymentDebitCard.valid) {
       this.dialogRef.close({
         action: 'pay',
-        data: this.formPaymentCreditCard.value,
+        data: this.formPaymentDebitCard.value,
       });
     }
   }

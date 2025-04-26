@@ -33,7 +33,7 @@
           <mat-label>Contas Correntes</mat-label>
           <mat-select formControlName="currentAccount">
             <mat-option
-              *ngFor="let account of accounts$ | async"
+              *ngFor="let account of accountsMoney"
               [value]="account.value"
             >
               {{ account.label }}

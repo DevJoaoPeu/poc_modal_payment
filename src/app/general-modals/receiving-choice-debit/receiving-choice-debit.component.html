@@ -1,4 +1,4 @@
-<div class="payment-modal-container" [formGroup]="formPaymentCreditCard">
+<div class="payment-modal-container" [formGroup]="formPaymentDebitCard">
   <div class="payment-modal-header">
     <button mat-icon-button (click)="onBack()">
       <mat-icon>arrow_back</mat-icon>
@@ -106,7 +106,7 @@
       mat-flat-button
       color="primary"
       (click)="onPay()"
-      [disabled]="formPaymentCreditCard.invalid"
+      [disabled]="formPaymentDebitCard.invalid"
     >
       Pagar
     </button>
