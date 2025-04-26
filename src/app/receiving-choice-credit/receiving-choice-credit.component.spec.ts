@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReceivingChoiceCheckinComponent } from './receiving-choice-checkin.component';
+import { ReceivingChoiceCheckinComponent } from './receiving-choice-credit.component';
 
 describe('ReceivingChoiceCheckinComponent', () => {
   let component: ReceivingChoiceCheckinComponent;
@@ -8,9 +8,8 @@ describe('ReceivingChoiceCheckinComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReceivingChoiceCheckinComponent]
-    })
-    .compileComponents();
+      imports: [ReceivingChoiceCheckinComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ReceivingChoiceCheckinComponent);
     component = fixture.componentInstance;

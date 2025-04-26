@@ -53,7 +53,7 @@ interface TypeMachine {
 }
 
 @Component({
-  selector: 'app-receiving-choice-checkin',
+  selector: 'app-receiving-choice-credit',
   standalone: true,
   imports: [
     MatDialogModule,
@@ -72,8 +72,8 @@ interface TypeMachine {
     AsyncPipe,
     NgIf,
   ],
-  templateUrl: './receiving-choice-checkin.component.html',
-  styleUrls: ['./receiving-choice-checkin.component.scss'],
+  templateUrl: './receiving-choice-credit.component.html',
+  styleUrls: ['./receiving-choice-credit.component.scss'],
   providers: [
     provideNgxMask(),
     {
@@ -84,7 +84,7 @@ interface TypeMachine {
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
 })
-export class ReceivingChoiceCheckinComponent implements OnInit {
+export class ReceivingChoiceCreditComponent implements OnInit {
   formPaymentCreditCard!: FormGroup;
   titleComponet: string = 'Receber por Cartão de Crédito';
 
@@ -109,7 +109,7 @@ export class ReceivingChoiceCheckinComponent implements OnInit {
   isTef$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
-    private dialogRef: MatDialogRef<ReceivingChoiceCheckinComponent>,
+    private dialogRef: MatDialogRef<ReceivingChoiceCreditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder
   ) {}

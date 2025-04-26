@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReceivingChoiceCheckinComponent } from './receiving-choice-checkin/receiving-choice-checkin.component';
+import { ReceivingChoiceCreditComponent } from './receiving-choice-credit/receiving-choice-credit.component';
 import {
   MatDialog,
   MatDialogModule,
@@ -16,7 +16,7 @@ export class AppComponent {
   constructor(private dialog: MatDialog) {}
 
   openModalCheckin(): void {
-    const dialogRef = this.dialog.open(ReceivingChoiceCheckinComponent, {
+    const dialogRef = this.dialog.open(ReceivingChoiceCreditComponent, {
       data: {},
     });
 
