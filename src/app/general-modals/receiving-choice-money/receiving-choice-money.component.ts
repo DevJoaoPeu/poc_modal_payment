@@ -99,6 +99,7 @@ export class ReceivingChoiceMoneyComponent {
       value: [0, [Validators.required, this.validatesIfTheValueIsZero]],
       paymentAmount: [{ value: 0, disabled: true }, [Validators.required]],
       valueExchange: [{ value: 0, disabled: true }, [Validators.required]],
+      residualBalance: [{ value: 0, disabled: true }, [Validators.required]],
     });
   }
 
