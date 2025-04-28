@@ -81,11 +81,6 @@ export class ReceivingChoicePixComponent {
 
   installments: number[] = [1, 2, 3, 4, 5, 6, 12];
 
-  typeMachine: TypeMachine[] = [
-    { value: 1, label: 'AUTO' },
-    { value: 1, label: 'MANUAL' },
-  ];
-
   accountsTef: Account[] = [
     { value: 1, label: 'Conta TEF 1' },
     { value: 2, label: 'Conta TEF 2' },
@@ -134,10 +129,11 @@ export class ReceivingChoicePixComponent {
   startForm() {
     this.formPaymentDebitCard = this.fb.group({
       isTef: [true, Validators.required],
-      machine: [this.typeMachine[0].value, Validators.required],
       paymentDate: [{ value: new Date(), disabled: true }, Validators.required],
       currentAccount: [null, Validators.required],
-      paymentValue: [0, [Validators.required, this.validatesIfTheValueIsZero]],
+      amount: [0, [Validators.required, this.validatesIfTheValueIsZero]],
+      paymentAmount: [{ value: 0, disabled: true }, [Validators.required]],
+      residualBalance: [{ value: 0, disabled: true }, [Validators.required]],
     });
   }
 

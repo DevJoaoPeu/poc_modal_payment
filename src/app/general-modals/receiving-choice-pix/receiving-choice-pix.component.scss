@@ -45,10 +45,12 @@
 }
 
 .payment-modal-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 20px;
+  .payment-modal-forms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+  }
 
   .tef-options {
     display: flex;
