@@ -1,7 +1,7 @@
 .payment-modal-container {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 510px;
   padding: 25px;
   background: #ffffff;
   border-radius: 8px;
@@ -19,7 +19,7 @@
 }
 
 .payment-modal-content {
-  margin-top: 16px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -45,20 +45,14 @@
 }
 
 .payment-modal-options {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+  margin-top: 20px;
 
   .tef-options {
     display: flex;
-    gap: 16px;
-  }
-
-  .payment-modal-fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 20px 10px 0px 10px;
-    gap: 16px;
+    gap: 10px;
   }
 }
 

@@ -41,60 +41,58 @@
         <mat-radio-button [value]="false">Não TEF</mat-radio-button>
       </mat-radio-group>
 
-      <div class="payment-modal-fields">
-        <mat-form-field appearance="outline">
-          <mat-label>Máquina</mat-label>
-          <mat-select formControlName="machine">
-            <mat-option
-              *ngFor="let machine of typeMachine"
-              [value]="machine.value"
-            >
-              {{ machine.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Máquina</mat-label>
+        <mat-select formControlName="machine">
+          <mat-option
+            *ngFor="let machine of typeMachine"
+            [value]="machine.value"
+          >
+            {{ machine.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Data do Pagamento</mat-label>
-          <input
-            matInput
-            [matDatepicker]="picker"
-            formControlName="paymentDate"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-            disabled
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Data do Pagamento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="paymentDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker"
+          disabled
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Contas Correntes</mat-label>
-          <mat-select formControlName="currentAccount">
-            <mat-option
-              *ngFor="let account of accounts$ | async"
-              [value]="account.value"
-            >
-              {{ account.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Contas Correntes</mat-label>
+        <mat-select formControlName="currentAccount">
+          <mat-option
+            *ngFor="let account of accounts$ | async"
+            [value]="account.value"
+          >
+            {{ account.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Valor</mat-label>
-          <input
-            matInput
-            formControlName="paymentValue"
-            mask="separator.2"
-            [thousandSeparator]="'.'"
-            [decimalMarker]="','"
-            [dropSpecialCharacters]="true"
-            [inputMode]="'financial'"
-            prefix="R$ "
-          />
-        </mat-form-field>
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input
+          matInput
+          formControlName="paymentValue"
+          mask="separator.2"
+          [thousandSeparator]="'.'"
+          [decimalMarker]="','"
+          [dropSpecialCharacters]="true"
+          [inputMode]="'financial'"
+          prefix="R$ "
+        />
+      </mat-form-field>
     </div>
   </div>
 
