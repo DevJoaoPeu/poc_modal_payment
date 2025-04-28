@@ -77,7 +77,8 @@ export class ReceivingChoiceMoneyComponent {
 
   constructor(
     private dialogRef: MatDialogRef<ReceivingChoiceMoneyComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IDataComponentChooseModal,
+    @Inject(MAT_DIALOG_DATA)
+    public dataComponentChooseModal: IDataComponentChooseModal,
     private fb: FormBuilder
   ) {}
 
