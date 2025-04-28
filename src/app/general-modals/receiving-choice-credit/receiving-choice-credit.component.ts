@@ -35,6 +35,10 @@ import { Account } from '../../shared/interfaces/account.current.interface';
 import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
 import { IDataComponentChooseModal } from '../../shared/interfaces/data.component.choose.modal.interface';
 import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
+import { TypeComponentOrigin } from '../../shared/enums/type.component.origin.enum';
+import { CheckinPaymentService } from './services/checkin-payment.service';
+import { PaymentAccountsReceivableService } from './services/payment-accounts-receivable.service';
+import { ProposedPaymentService } from './services/proposed-payment.service';
 
 @Component({
   selector: 'app-receiving-choice-credit',
@@ -66,6 +70,9 @@ import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
       deps: [MAT_DATE_LOCALE],
     },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+    CheckinPaymentService,
+    PaymentAccountsReceivableService,
+    ProposedPaymentService,
   ],
 })
 export class ReceivingChoiceCreditComponent implements OnInit {
@@ -95,13 +102,34 @@ export class ReceivingChoiceCreditComponent implements OnInit {
     private dialogRef: MatDialogRef<ReceivingChoiceCreditComponent>,
     @Inject(MAT_DIALOG_DATA)
     public dataComponentChooseModal: IDataComponentChooseModal,
+    private readonly checkinPaymentService: CheckinPaymentService,
+    private readonly paymentAccountsReceivableService: PaymentAccountsReceivableService,
+    private readonly proposedPaymentService: ProposedPaymentService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.strategyToSetFlow();
     this.startForm();
     this.defineCurrentAccounts();
     this.setTefMessageOrNotTef();
+  }
+
+  strategyToSetFlow(): void {
+    const originCall: TypeComponentOrigin =
+      this.dataComponentChooseModal.componentOrigin;
+
+    switch (originCall) {
+      case TypeComponentOrigin.PROPOSAL:
+        this.titleComponet = 'Receber por Cartão de Crédito';
+        break;
+      case TypeComponentOrigin.ACCOUNTS_RECEIVABLE:
+        this.titleComponet = 'Receber por Cartão de Dívida';
+        break;
+      case TypeComponentOrigin.CHECKIN:
+        this.titleComponet = 'Receber por PIX';
+        break;
+    }
   }
 
   setTefMessageOrNotTef(): void {

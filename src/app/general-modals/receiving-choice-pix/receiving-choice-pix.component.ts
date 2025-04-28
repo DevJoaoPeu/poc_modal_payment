@@ -35,6 +35,9 @@ import { Account } from '../../shared/interfaces/account.current.interface';
 import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
 import { IDataComponentChooseModal } from '../../shared/interfaces/data.component.choose.modal.interface';
 import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
+import { CheckinPaymentService } from '../receiving-choice-credit/services/checkin-payment.service';
+import { PaymentAccountsReceivableService } from '../receiving-choice-credit/services/payment-accounts-receivable.service';
+import { ProposedPaymentService } from '../receiving-choice-credit/services/proposed-payment.service';
 
 @Component({
   selector: 'app-receiving-choice-pix',
@@ -63,6 +66,9 @@ import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
       deps: [MAT_DATE_LOCALE],
     },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+    CheckinPaymentService,
+    PaymentAccountsReceivableService,
+    ProposedPaymentService,
   ],
   templateUrl: './receiving-choice-pix.component.html',
   styleUrl: './receiving-choice-pix.component.scss',
@@ -89,6 +95,9 @@ export class ReceivingChoicePixComponent {
     private dialogRef: MatDialogRef<ReceivingChoicePixComponent>,
     @Inject(MAT_DIALOG_DATA)
     public dataComponentChooseModal: IDataComponentChooseModal,
+    private readonly checkinPaymentService: CheckinPaymentService,
+    private readonly paymentAccountsReceivableService: PaymentAccountsReceivableService,
+    private readonly proposedPaymentService: ProposedPaymentService,
     private fb: FormBuilder
   ) {}
 
