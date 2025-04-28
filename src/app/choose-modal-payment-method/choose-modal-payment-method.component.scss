@@ -1,0 +1,39 @@
+.payment-modal {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 400px;
+
+  .payment-modal-title {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .payment-options-grid {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-items: center;
+  }
+
+  .payment-option {
+    background-color: #5ac6d0;
+    color: white;
+    padding: 15px 20px;
+    font-weight: 600;
+    font-size: 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    border: none;
+
+    &:hover {
+      background-color: #48b3bd;
+    }
+
+    &:disabled {
+      background-color: #cfd8dc;
+      color: #9e9e9e;
+    }
+  }
+}

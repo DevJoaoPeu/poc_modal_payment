@@ -8,6 +8,7 @@ import {
 import { ReceivingChoiceDebitComponent } from './general-modals/receiving-choice-debit/receiving-choice-debit.component';
 import { ReceivingChoiceMoneyComponent } from './general-modals/receiving-choice-money/receiving-choice-money.component';
 import { ReceivingChoicePixComponent } from './general-modals/receiving-choice-pix/receiving-choice-pix.component';
+import { ChooseModalPaymentMethodComponent } from './choose-modal-payment-method/choose-modal-payment-method.component';
 
 @Component({
   selector: 'app-root',
@@ -18,39 +19,11 @@ import { ReceivingChoicePixComponent } from './general-modals/receiving-choice-p
 export class AppComponent {
   constructor(private dialog: MatDialog) {}
 
-  openModalCheckin(): void {
-    const dialogRef = this.dialog.open(ReceivingChoiceCreditComponent, {
-      data: {},
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O modal foi fechado');
-    });
-  }
-
-  openModalProposal(): void {
-    const dialogRef = this.dialog.open(ReceivingChoiceDebitComponent, {
-      data: {},
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O modal foi fechado');
-    });
-  }
-
-  openModalAccountsReceiver(): void {
-    const dialogRef = this.dialog.open(ReceivingChoiceMoneyComponent, {
-      data: {},
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O modal foi fechado');
-    });
-  }
-
-  openModalBillsToPay(): void {
-    const dialogRef = this.dialog.open(ReceivingChoicePixComponent, {
-      data: {},
+  openModalPayment(): void {
+    const dialogRef = this.dialog.open(ChooseModalPaymentMethodComponent, {
+      data: {
+        componentOrigin: TypeComponentOrigin.CHECKIN,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
