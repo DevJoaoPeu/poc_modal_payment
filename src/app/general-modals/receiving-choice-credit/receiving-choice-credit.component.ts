@@ -36,9 +36,11 @@ import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
 import { IDataComponentChooseModal } from '../../shared/interfaces/data.component.choose.modal.interface';
 import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
 import { TypeComponentOrigin } from '../../shared/enums/type.component.origin.enum';
-import { CheckinPaymentService } from './services/checkin-payment.service';
-import { PaymentAccountsReceivableService } from './services/payment-accounts-receivable.service';
-import { ProposedPaymentService } from './services/proposed-payment.service';
+import { PaymentStrategyFactory } from './factories/payment.strategy.factory';
+import { PaymentStrategy } from './model/payment-strategy.interface';
+import { CheckinPaymentStrategy } from './strategies/checkin.payment.strategy';
+import { ProposedPaymentStrategy } from './strategies/proposed.payment.strategy';
+import { PaymentAccountsReceivableStrategy } from './strategies/payment.accounts.receivable.strategy';
 
 @Component({
   selector: 'app-receiving-choice-credit',
@@ -70,12 +72,14 @@ import { ProposedPaymentService } from './services/proposed-payment.service';
       deps: [MAT_DATE_LOCALE],
     },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
-    CheckinPaymentService,
-    PaymentAccountsReceivableService,
-    ProposedPaymentService,
+    PaymentStrategyFactory,
+    CheckinPaymentStrategy,
+    ProposedPaymentStrategy,
+    PaymentAccountsReceivableStrategy,
   ],
 })
 export class ReceivingChoiceCreditComponent implements OnInit {
+  private paymentStrategy!: PaymentStrategy;
   formPaymentCreditCard!: FormGroup;
   titleComponet: string = 'Receber por Cartão de Crédito';
 
@@ -102,34 +106,23 @@ export class ReceivingChoiceCreditComponent implements OnInit {
     private dialogRef: MatDialogRef<ReceivingChoiceCreditComponent>,
     @Inject(MAT_DIALOG_DATA)
     public dataComponentChooseModal: IDataComponentChooseModal,
-    private readonly checkinPaymentService: CheckinPaymentService,
-    private readonly paymentAccountsReceivableService: PaymentAccountsReceivableService,
-    private readonly proposedPaymentService: ProposedPaymentService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private readonly strategyFactory: PaymentStrategyFactory
   ) {}
 
   ngOnInit(): void {
-    this.strategyToSetFlow();
     this.startForm();
     this.defineCurrentAccounts();
     this.setTefMessageOrNotTef();
+    this.strategyToSetFlow();
   }
 
   strategyToSetFlow(): void {
-    const originCall: TypeComponentOrigin =
-      this.dataComponentChooseModal.componentOrigin;
+    this.paymentStrategy = this.strategyFactory.getStrategy(
+      this.dataComponentChooseModal.componentOrigin
+    );
 
-    switch (originCall) {
-      case TypeComponentOrigin.PROPOSAL:
-        this.titleComponet = 'Receber por Cartão de Crédito';
-        break;
-      case TypeComponentOrigin.ACCOUNTS_RECEIVABLE:
-        this.titleComponet = 'Receber por Cartão de Dívida';
-        break;
-      case TypeComponentOrigin.CHECKIN:
-        this.titleComponet = 'Receber por PIX';
-        break;
-    }
+    console.log('strategy', this.paymentStrategy);
   }
 
   setTefMessageOrNotTef(): void {
