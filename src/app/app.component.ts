@@ -23,12 +23,10 @@ export class AppComponent {
   openModalPayment(): void {
     const dialogRef = this.dialog.open(ChooseModalPaymentMethodComponent, {
       data: {
-        componentOrigin: TypeComponentOrigin.CHECKIN,
+        componentOrigin: TypeComponentOrigin.PROPOSAL,
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O modal foi fechado');
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }

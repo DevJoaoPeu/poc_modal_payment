@@ -3,7 +3,11 @@ import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class ProposedPaymentStrategy {
-  constructor() {}
+  constructor() {
+    this.execute();
+  }
 
-  execute(form: FormGroup): void {}
+  execute(): void {
+    console.log('proposto');
+  }
 }

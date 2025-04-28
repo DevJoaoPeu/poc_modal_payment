@@ -8,6 +8,6 @@ export class CheckinPaymentStrategy {
   }
 
   execute(): void {
-    console.log('CheckinPaymentStrategy');
+    console.log('checkin');
   }
 }

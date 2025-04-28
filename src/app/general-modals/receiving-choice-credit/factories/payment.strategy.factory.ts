@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { CheckinPaymentStrategy } from '../strategies/checkin.payment.strategy';
 import { PaymentAccountsReceivableStrategy } from '../strategies/payment.accounts.receivable.strategy';
 import { ProposedPaymentStrategy } from '../strategies/proposed.payment.strategy';
@@ -6,20 +6,17 @@ import { TypeComponentOrigin } from '../../../shared/enums/type.component.origin
 
 @Injectable()
 export class PaymentStrategyFactory {
-  constructor(
-    private checkinPaymentStrategy: CheckinPaymentStrategy,
-    private paymentAccountsReceivableStrategy: PaymentAccountsReceivableStrategy,
-    private proposedPaymentStrategy: ProposedPaymentStrategy
-  ) {}
+  constructor(private injector: Injector) {}
 
   getStrategy(origin: TypeComponentOrigin) {
+    console.log(origin);
     switch (origin) {
       case TypeComponentOrigin.CHECKIN:
-        return this.checkinPaymentStrategy;
+        return this.injector.get(CheckinPaymentStrategy);
       case TypeComponentOrigin.ACCOUNTS_RECEIVABLE:
-        return this.paymentAccountsReceivableStrategy;
+        return this.injector.get(PaymentAccountsReceivableStrategy);
       case TypeComponentOrigin.PROPOSAL:
-        return this.proposedPaymentStrategy;
+        return this.injector.get(ProposedPaymentStrategy);
       default:
         throw new Error('Unknown origin for PaymentStrategy.');
     }

@@ -3,7 +3,11 @@ import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class PaymentAccountsReceivableStrategy {
-  constructor() {}
+  constructor() {
+    this.execute();
+  }
 
-  execute(form: FormGroup): void {}
+  execute(): void {
+    console.log('contas a receber');
+  }
 }

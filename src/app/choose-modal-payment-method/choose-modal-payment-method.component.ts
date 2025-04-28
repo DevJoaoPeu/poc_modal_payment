@@ -29,9 +29,7 @@ export class ChooseModalPaymentMethodComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O modal foi fechado', result);
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
   openModalPaymentDebit() {
     const dialogRef = this.dialog.open<
@@ -43,9 +41,7 @@ export class ChooseModalPaymentMethodComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O modal foi fechado', result);
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
   openModalPaymentMoney() {
     const dialogRef = this.dialog.open<
@@ -57,9 +53,7 @@ export class ChooseModalPaymentMethodComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O modal foi fechado', result);
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
   openModalPaymentPix() {
     const dialogRef = this.dialog.open<
@@ -71,8 +65,6 @@ export class ChooseModalPaymentMethodComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('O modal foi fechado', result);
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }
