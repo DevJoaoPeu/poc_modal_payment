@@ -35,9 +35,9 @@ import { Account } from '../../shared/interfaces/account.current.interface';
 import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
 import { IDataComponentChooseModal } from '../../shared/interfaces/data.component.choose.modal.interface';
 import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
-import { CheckinPaymentService } from '../receiving-choice-credit/services/checkin-payment.service';
-import { PaymentAccountsReceivableService } from '../receiving-choice-credit/services/payment-accounts-receivable.service';
-import { ProposedPaymentService } from '../receiving-choice-credit/services/proposed-payment.service';
+import { CheckinPaymentService } from './services/checkin-payment.service';
+import { PaymentAccountsReceivableService } from './services/payment-accounts-receivable.service';
+import { ProposedPaymentService } from './services/proposed-payment.service';
 
 @Component({
   selector: 'app-receiving-choice-money',
