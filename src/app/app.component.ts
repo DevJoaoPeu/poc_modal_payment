@@ -9,6 +9,7 @@ import { ReceivingChoiceDebitComponent } from './general-modals/receiving-choice
 import { ReceivingChoiceMoneyComponent } from './general-modals/receiving-choice-money/receiving-choice-money.component';
 import { ReceivingChoicePixComponent } from './general-modals/receiving-choice-pix/receiving-choice-pix.component';
 import { ChooseModalPaymentMethodComponent } from './choose-modal-payment-method/choose-modal-payment-method.component';
+import { TypeComponentOrigin } from './shared/enums/type.component.origin.enum';
 
 @Component({
   selector: 'app-root',
