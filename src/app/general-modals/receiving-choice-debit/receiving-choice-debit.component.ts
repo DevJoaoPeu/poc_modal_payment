@@ -102,7 +102,7 @@ export class ReceivingChoiceDebitComponent {
     this.setTefMessageOrNotTef();
   }
 
-  setTefMessageOrNotTef() {
+  setTefMessageOrNotTef(): void {
     const defineMessage$ = this.formPaymentDebitCard
       .get('isTef')!
       .valueChanges.pipe(
@@ -115,14 +115,14 @@ export class ReceivingChoiceDebitComponent {
     });
   }
 
-  defineCurrentAccounts() {
+  defineCurrentAccounts(): void {
     this.accounts$ = this.formPaymentDebitCard.get('isTef')!.valueChanges.pipe(
       startWith(this.formPaymentDebitCard.get('isTef')!.value),
       map((isTef: boolean) => (isTef ? this.accountsTef : this.accountsNotTef))
     );
   }
 
-  startForm() {
+  startForm(): void {
     this.formPaymentDebitCard = this.fb.group({
       isTef: [true, Validators.required],
       machine: [this.typeMachine[0].value, Validators.required],

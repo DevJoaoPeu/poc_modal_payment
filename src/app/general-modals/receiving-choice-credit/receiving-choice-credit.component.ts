@@ -103,7 +103,7 @@ export class ReceivingChoiceCreditComponent implements OnInit {
     this.setTefMessageOrNotTef();
   }
 
-  setTefMessageOrNotTef() {
+  setTefMessageOrNotTef(): void {
     const defineMessage$ = this.formPaymentCreditCard
       .get('isTef')!
       .valueChanges.pipe(
@@ -116,14 +116,14 @@ export class ReceivingChoiceCreditComponent implements OnInit {
     });
   }
 
-  defineCurrentAccounts() {
+  defineCurrentAccounts(): void {
     this.accounts$ = this.formPaymentCreditCard.get('isTef')!.valueChanges.pipe(
       startWith(this.formPaymentCreditCard.get('isTef')!.value),
       map((isTef: boolean) => (isTef ? this.accountsTef : this.accountsNotTef))
     );
   }
 
-  startForm() {
+  startForm(): void {
     this.formPaymentCreditCard = this.fb.group({
       isTef: [true, Validators.required],
       machine: [this.typeMachine[0].value, Validators.required],
