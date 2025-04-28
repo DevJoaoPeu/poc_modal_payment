@@ -33,6 +33,7 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import { Account } from '../../shared/interfaces/account.current.interface';
 import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
+import { IDataComponentChooseModal } from '../../shared/interfaces/data.component.choose.modal.interface';
 
 export const APP_DATE_FORMATS: MatDateFormats = {
   parse: { dateInput: 'DD/MM/YYYY' },
@@ -102,7 +103,7 @@ export class ReceivingChoiceCreditComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ReceivingChoiceCreditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: IDataComponentChooseModal,
     private fb: FormBuilder
   ) {}
 
