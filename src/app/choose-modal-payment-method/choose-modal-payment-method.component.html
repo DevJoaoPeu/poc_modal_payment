@@ -2,9 +2,33 @@
   <h2 class="payment-modal-title">Receber</h2>
 
   <div class="payment-options-grid">
-    <button mat-raised-button class="payment-option">Cartão de Crédito</button>
-    <button mat-raised-button class="payment-option">Cartão de Débito</button>
-    <button mat-raised-button class="payment-option">Dinheiro</button>
-    <button mat-raised-button class="payment-option">PIX</button>
+    <button
+      mat-raised-button
+      class="payment-option"
+      (click)="openModalPaymentCredit()"
+    >
+      Cartão de Crédito
+    </button>
+    <button
+      mat-raised-button
+      class="payment-option"
+      (click)="openModalPaymentDebit()"
+    >
+      Cartão de Débito
+    </button>
+    <button
+      mat-raised-button
+      class="payment-option"
+      (click)="openModalPaymentMoney()"
+    >
+      Dinheiro
+    </button>
+    <button
+      mat-raised-button
+      class="payment-option"
+      (click)="openModalPaymentPix()"
+    >
+      PIX
+    </button>
   </div>
 </div>
