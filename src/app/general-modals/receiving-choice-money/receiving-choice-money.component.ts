@@ -95,7 +95,6 @@ export class ReceivingChoiceMoneyComponent {
   startForm() {
     this.formPaymentMoney = this.fb.group({
       paymentDate: [{ value: new Date(), disabled: true }, Validators.required],
-      currentAccount: [null, Validators.required],
       value: [0, [Validators.required, this.validatesIfTheValueIsZero]],
       paymentAmount: [{ value: 0, disabled: true }, [Validators.required]],
       valueExchange: [{ value: 0, disabled: true }, [Validators.required]],

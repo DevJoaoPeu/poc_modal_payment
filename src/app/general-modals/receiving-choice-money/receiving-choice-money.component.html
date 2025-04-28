@@ -44,18 +44,6 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Contas Correntes</mat-label>
-        <mat-select formControlName="currentAccount">
-          <mat-option
-            *ngFor="let account of accountsMoney"
-            [value]="account.value"
-          >
-            {{ account.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
         <mat-label>Valor</mat-label>
         <input
           matInput
