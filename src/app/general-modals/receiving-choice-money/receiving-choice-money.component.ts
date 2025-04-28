@@ -34,16 +34,8 @@ import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import { Account } from '../../shared/interfaces/account.current.interface';
 import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
 import { IDataComponentChooseModal } from '../../shared/interfaces/data.component.choose.modal.interface';
+import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
 
-export const APP_DATE_FORMATS: MatDateFormats = {
-  parse: { dateInput: 'DD/MM/YYYY' },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'DD/MM/YYYY',
-    monthYearA11yLabel: 'MMM YYYY',
-  },
-};
 @Component({
   selector: 'app-receiving-choice-money',
   imports: [

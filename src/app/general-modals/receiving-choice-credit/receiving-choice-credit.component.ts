@@ -34,16 +34,7 @@ import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import { Account } from '../../shared/interfaces/account.current.interface';
 import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
 import { IDataComponentChooseModal } from '../../shared/interfaces/data.component.choose.modal.interface';
-
-export const APP_DATE_FORMATS: MatDateFormats = {
-  parse: { dateInput: 'DD/MM/YYYY' },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'DD/MM/YYYY',
-    monthYearA11yLabel: 'MMM YYYY',
-  },
-};
+import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
 
 @Component({
   selector: 'app-receiving-choice-credit',
@@ -96,7 +87,6 @@ export class ReceivingChoiceCreditComponent implements OnInit {
     { value: 1, label: 'Conta NÃO TEF 1' },
     { value: 2, label: 'Conta NÃO TEF 2' },
   ];
-  accountsMoney: Account[] = [{ value: 1, label: 'Conta Dinheiro' }];
 
   accounts$!: Observable<Account[]>;
   isTef$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
