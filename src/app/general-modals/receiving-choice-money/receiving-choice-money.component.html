@@ -13,48 +13,56 @@
 
   <div class="payment-modal-content">
     <div class="payment-modal-options">
-      <div class="payment-modal-fields">
-        <mat-form-field appearance="outline">
-          <mat-label>Data do Pagamento</mat-label>
-          <input
-            matInput
-            [matDatepicker]="picker"
-            formControlName="paymentDate"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-            disabled
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Data do Pagamento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="paymentDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker"
+          disabled
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Contas Correntes</mat-label>
-          <mat-select formControlName="currentAccount">
-            <mat-option
-              *ngFor="let account of accountsMoney"
-              [value]="account.value"
-            >
-              {{ account.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Valor do pagamento</mat-label>
+        <input matInput formControlName="paymentAmount" prefix="R$ " />
+      </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Valor</mat-label>
-          <input
-            matInput
-            formControlName="paymentValue"
-            mask="separator.2"
-            [thousandSeparator]="'.'"
-            [decimalMarker]="','"
-            [dropSpecialCharacters]="true"
-            [inputMode]="'financial'"
-            prefix="R$ "
-          />
-        </mat-form-field>
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Troco</mat-label>
+        <input matInput formControlName="valueExchange" prefix="R$ " />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contas Correntes</mat-label>
+        <mat-select formControlName="currentAccount">
+          <mat-option
+            *ngFor="let account of accountsMoney"
+            [value]="account.value"
+          >
+            {{ account.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input
+          matInput
+          formControlName="value"
+          mask="separator.2"
+          [thousandSeparator]="'.'"
+          [decimalMarker]="','"
+          [dropSpecialCharacters]="true"
+          [inputMode]="'financial'"
+          prefix="R$ "
+        />
+      </mat-form-field>
     </div>
   </div>
 
