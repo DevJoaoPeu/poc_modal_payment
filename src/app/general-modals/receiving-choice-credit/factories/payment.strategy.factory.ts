@@ -9,7 +9,6 @@ export class PaymentStrategyFactory {
   constructor(private injector: Injector) {}
 
   getStrategy(origin: TypeComponentOrigin) {
-    console.log(origin);
     switch (origin) {
       case TypeComponentOrigin.CHECKIN:
         return this.injector.get(CheckinPaymentStrategy);

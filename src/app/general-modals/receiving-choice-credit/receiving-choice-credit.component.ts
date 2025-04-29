@@ -37,7 +37,7 @@ import { IDataComponentChooseModal } from '../../shared/interfaces/data.componen
 import { APP_DATE_FORMATS } from '../../shared/formats/date.materia.format';
 import { TypeComponentOrigin } from '../../shared/enums/type.component.origin.enum';
 import { PaymentStrategyFactory } from './factories/payment.strategy.factory';
-import { PaymentStrategy } from './model/payment-strategy.interface';
+import { PaymentStrategy } from './models/payment-strategy.interface';
 import { CheckinPaymentStrategy } from './strategies/checkin.payment.strategy';
 import { ProposedPaymentStrategy } from './strategies/proposed.payment.strategy';
 import { PaymentAccountsReceivableStrategy } from './strategies/payment.accounts.receivable.strategy';
@@ -122,7 +122,7 @@ export class ReceivingChoiceCreditComponent implements OnInit {
       this.dataComponentChooseModal.componentOrigin
     );
 
-    console.log('strategy', this.paymentStrategy);
+    this.paymentStrategy.execute();
   }
 
   setTefMessageOrNotTef(): void {
