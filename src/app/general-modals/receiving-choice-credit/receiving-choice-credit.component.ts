@@ -1,6 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
+  MatDialog,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -94,7 +95,7 @@ export class ReceivingChoiceCreditComponent implements OnInit {
   isTef$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
-    private dialogRef: MatDialogRef<ReceivingChoiceCreditComponent>,
+    private dialogRef: MatDialog<ReceivingChoiceCreditComponent>,
     @Inject(MAT_DIALOG_DATA)
     public dataComponentChooseModal: IDataComponentChooseModal,
     private fb: FormBuilder,

@@ -7,24 +7,19 @@ import { ReceivingChoicePixComponent } from './general-modals/receiving-choice-p
 import { ReceivingChoiceMoneyComponent } from './general-modals/receiving-choice-money/receiving-choice-money.component';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { routes } from './app.routes';
+import { PaymentRoutingModule } from './payment-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PaymentRootComponent } from './payment.root.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule.forChild(routes), ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    PaymentRoutingModule,
+    PaymentRootComponent,
+    MatDialogModule,
+  ],
 })
-export class PaymentModule {
-  routes: Routes = [
-    {
-      path: '/',
-      component: ChooseModalPaymentMethodComponent,
-      children: [
-        { path: '/', component: AppComponent },
-        { path: '/credito', component: ReceivingChoiceCreditComponent },
-        { path: '/debito', component: ReceivingChoiceDebitComponent },
-        { path: '/pix', component: ReceivingChoicePixComponent },
-        { path: '/dinheiro', component: ReceivingChoiceMoneyComponent },
-      ],
-    },
-  ];
-}
+export class PaymentModule {}
