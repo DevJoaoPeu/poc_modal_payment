@@ -1,34 +1,7 @@
-<div class="payment-modal">
-  <h2 class="payment-modal-title">Receber</h2>
+<h1>Fluxo de Pagamento</h1>
 
-  <div class="payment-options-grid">
-    <button
-      mat-raised-button
-      class="payment-option"
-      (click)="openModalPaymentCredit()"
-    >
-      Cartão de Crédito
-    </button>
-    <button
-      mat-raised-button
-      class="payment-option"
-      (click)="openModalPaymentDebit()"
-    >
-      Cartão de Débito
-    </button>
-    <button
-      mat-raised-button
-      class="payment-option"
-      (click)="openModalPaymentMoney()"
-    >
-      Dinheiro
-    </button>
-    <button
-      mat-raised-button
-      class="payment-option"
-      (click)="openModalPaymentPix()"
-    >
-      PIX
-    </button>
-  </div>
-</div>
+<!-- Conteúdo principal do pagamento -->
+<router-outlet></router-outlet>
+
+<!-- "modal" exibido via rota com named outlet -->
+<router-outlet name="popup"></router-outlet>

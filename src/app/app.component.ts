@@ -10,10 +10,13 @@ import { ReceivingChoiceMoneyComponent } from './general-modals/receiving-choice
 import { ReceivingChoicePixComponent } from './general-modals/receiving-choice-pix/receiving-choice-pix.component';
 import { ChooseModalPaymentMethodComponent } from './choose-modal-payment-method/choose-modal-payment-method.component';
 import { TypeComponentOrigin } from './shared/enums/type.component.origin.enum';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [MatDialogModule],
+  imports: [MatDialogModule, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

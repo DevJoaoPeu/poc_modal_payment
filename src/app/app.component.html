@@ -1,5 +1,4 @@
-<div class="container">
-  <button mat-raised-button color="primary" (click)="openModalPayment()">
-    Escolher forma de pagamento
-  </button>
-</div>
+<button [routerLink]="['/pagamentos/credito']">Crédito</button>
+<button [routerLink]="['/pagamentos/debito']">Débito</button>
+<button [routerLink]="['/pagamentos/pix']">PIX</button>
+<button [routerLink]="['/pagamentos/dinheiro']">Dinheiro</button>
