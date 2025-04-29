@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -30,7 +30,7 @@ import {
 } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
+import { BehaviorSubject, Observable, map, startWith, tap } from 'rxjs';
 import { Account } from '../../shared/interfaces/account.current.interface';
 import { TypeMachine } from '../../shared/interfaces/type.machine.interface';
 import { IDataComponentChooseModal } from '../../shared/interfaces/data.component.choose.modal.interface';
@@ -90,15 +90,6 @@ export class ReceivingChoiceCreditComponent implements OnInit {
     { value: 1, label: 'MANUAL' },
   ];
 
-  accountsTef: Account[] = [
-    { value: 1, label: 'Conta TEF 1' },
-    { value: 2, label: 'Conta TEF 2' },
-  ];
-  accountsNotTef: Account[] = [
-    { value: 1, label: 'Conta NÃO TEF 1' },
-    { value: 2, label: 'Conta NÃO TEF 2' },
-  ];
-
   accounts$!: Observable<Account[]>;
   isTef$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
@@ -112,17 +103,15 @@ export class ReceivingChoiceCreditComponent implements OnInit {
 
   ngOnInit(): void {
     this.startForm();
-    this.defineCurrentAccounts();
     this.setTefMessageOrNotTef();
     this.strategyToSetFlow();
+    this.searchCurrentAccounts();
   }
 
   strategyToSetFlow(): void {
     this.paymentStrategy = this.strategyFactory.getStrategy(
       this.dataComponentChooseModal.componentOrigin
     );
-
-    this.paymentStrategy.execute();
   }
 
   setTefMessageOrNotTef(): void {
@@ -138,11 +127,16 @@ export class ReceivingChoiceCreditComponent implements OnInit {
     });
   }
 
-  defineCurrentAccounts(): void {
-    this.accounts$ = this.formPaymentCreditCard.get('isTef')!.valueChanges.pipe(
-      startWith(this.formPaymentCreditCard.get('isTef')!.value),
-      map((isTef: boolean) => (isTef ? this.accountsTef : this.accountsNotTef))
-    );
+  searchCurrentAccounts(): void {
+    this.formPaymentCreditCard
+      .get('isTef')!
+      .valueChanges.pipe(
+        startWith(this.formPaymentCreditCard.get('isTef')!.value),
+        tap((isTef: boolean) => {
+          this.accounts$ = this.paymentStrategy.defineCurrentAccounts(isTef);
+        })
+      )
+      .subscribe();
   }
 
   startForm(): void {
@@ -151,7 +145,7 @@ export class ReceivingChoiceCreditComponent implements OnInit {
       machine: [this.typeMachine[0].value, Validators.required],
       parcel: [1, Validators.required],
       paymentDate: [{ value: new Date(), disabled: true }, Validators.required],
-      currentAccount: [null, Validators.required],
+      currentAccount: [Validators.required],
       paymentValue: [0, [Validators.required, this.validatesIfTheValueIsZero]],
     });
   }
